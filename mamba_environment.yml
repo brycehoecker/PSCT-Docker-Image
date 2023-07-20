@@ -1,0 +1,27 @@
+name: mymambaenv
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - numpy
+  - numba
+  - tqdm
+  - h5py
+  - pandas
+  - scipy
+  - cmake=3.14
+  - swig=4.0.2
+  - matplotlib
+  - cfitsio
+  - yaml
+  - pyyaml
+  - pexpect
+  - pymysql
+  - astroplan
+
+  
+
+#  - conda-forge::cool-package=0.123
+#  - pip:
+#    - flask==1.1.1
+#    - gunicorn==20.0.4
