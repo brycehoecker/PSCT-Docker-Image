@@ -3,25 +3,21 @@ channels:
   - defaults
   - conda-forge
 dependencies:
-  - numpy
-  - numba
-  - tqdm
-  - h5py
-  - pandas
-  - scipy
+  - numpy=1.25.1
+  - numba=0.57.1
+  - tqdm=4.65.0
+  - h5py=3.9.0
+  - pandas=2.0.3
+  - scipy=1.11.1
   - cmake=3.14
   - swig=4.0.2
-  - matplotlib
-  - cfitsio
-  - yaml
-  - pyyaml
-  - pexpect
-  - pymysql
-  - astroplan
+  - matplotlib=3.7.2
+  - cfitsio=4.2.0
+  - yaml=0.2.5
+  - pyyaml=6.0
+  - pexpect=4.8.0
+  - pymysql=1.1.0
+  - astroplan=0.8
 
   
-
-#  - conda-forge::cool-package=0.123
-#  - pip:
-#    - flask==1.1.1
-#    - gunicorn==20.0.4
+#Current Packages as of July 19, 2023 (EXCEPT SWIG AND CMAKE)
