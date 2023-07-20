@@ -18,6 +18,7 @@ dependencies:
   - pexpect=4.8.0
   - pymysql=1.1.0
   - astroplan=0.8
+  - astropy=5.3.1
 
   
 #Current Packages as of July 19, 2023 (EXCEPT SWIG AND CMAKE)
