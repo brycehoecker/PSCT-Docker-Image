@@ -8,29 +8,41 @@
 # Use the rockylinux:9.2 image as the base
 FROM rockylinux:9.2
 
-# Install necessary packages
+# Install necessary tools and enable EPEL and CRB Repos
 RUN dnf -y update \
     && dnf install -y dnf-plugins-core \
     && dnf config-manager --set-enabled crb \
-    && dnf install -y epel-release
+    && dnf install -y epel-release git
 
-# Copy the dnfinstall.list file into the Docker image
-COPY dnfinstall.list /dnfinstall.list
-
-# Install packages from the dnfinstall.list file
-RUN dnf install -y $(cat /dnfinstall.list | tr '\n' ' ')
-
-# Install mamba from the GitHub repo
-RUN pip3 install git+https://github.com/mamba-org/mamba.git
-
-# Set the working directory
+# Set work directory & Copy the required_files directory into the image
 WORKDIR /app
+COPY required_files/ /app/
 
-# Copy the environment.yml file into the Docker image
-COPY environment.yml ./environment.yml
+# Update the system and install programs listed in dnfinstall.list
+RUN dnf -y update && \
+    cat dnfinstall.list | xargs dnf -y install && \
+    dnf clean all && \
+    rm -f dnfinstall.list
 
-# Create the new mamba environment
-RUN mamba env create -f environment.yml
+# Install Miniforge (Conda + Mamba)
+RUN curl -L -o miniforge.sh https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh \
+    && /bin/bash miniforge.sh -b -p /opt/mambaforge \
+    && rm miniforge.sh
+ENV PATH="/opt/mambaforge/bin:$PATH"
 
-# Make RUN commands use the new environment
-SHELL ["conda", "run", "-n", "myenv", "/bin/bash", "-c"]
+# Set strict channel priority
+RUN mamba config --set channel_priority strict
+
+# Create the new mamba environment from mamba_environment.yml
+RUN /bin/bash -c "source /opt/mambaforge/bin/activate && mamba env create -f mamba_environment.yml"
+
+# Make script.sh executable, run it and then delete it
+RUN chmod +x script.sh && \
+	./script.sh && \
+	rm script.sh
+
+# Make RUN commands use the new mamba_environment
+SHELL ["conda", "run", "-n", "mymambaenv", "/bin/bash", "-c"]
+
+# Delete the mamba_environment.yml file
+RUN rm mamba_environment.yml
