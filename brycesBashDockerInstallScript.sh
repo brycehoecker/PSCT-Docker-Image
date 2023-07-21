@@ -13,32 +13,32 @@ NC='\033[0m' # No Color		# ${NC}
 
 # Set Docker image name
 imagename="psct_docker"
+# Set the SSH key path
+SSH_KEY_PATH="~/.ssh/gitlab_docker"
+# Prompt the user for their GitLab email
+read -p "${YELLOW}Please enter your GitLab email:${NC} " GITLAB_EMAIL
+# Check if the SSH key already exists
+if [ ! -f $SSH_KEY_PATH ]; then
+  echo -e "${YELLOW}Generating a new SSH key...${NC}"
+  ssh-keygen -t ed25519 -C "$GITLAB_EMAIL" -f $SSH_KEY_PATH -N ""
+else
+  echo -e "${GREEN}Existing SSH key found, skipping generation.${NC}"
+fi
+# Print the public key
+echo -e "${GREEN}Please add the following public key to your GitLab account:${NC}"
+cat "${SSH_KEY_PATH}.pub"
+# Prompt user for confirmation
+read -p "${YELLOW}Press enter to continue once you've added the SSH key to your GitLab account...${NC}"
+
+# Load the SSH key
+SSH_PRIVATE_KEY=$(cat $SSH_KEY_PATH)
 
 # Build the Docker image
 echo -e "${YELLOW}Now building the Docker image $imagename .... ${NC}"
-docker build -t $imagename .
+docker build --build-arg SSH_PRIVATE_KEY="$SSH_PRIVATE_KEY" -t $imagename .
 echo -e "${YELLOW}Docker image $imagename has finished attempting to build.${NC}"
 
 # Run the Docker container interactively
 echo -e "${CYAN}Now running the $imagename Docker container interactively.${NC}"
 docker run -it $imagename
-
-
-
-## prompt for github username
-#echo -n "Enter GitHub username: "
-#read username
-#
-## prompt for github password
-#echo -n "Enter GitHub password: "
-#read -s password
-#
-## prompt for image name
-#echo -n "Enter Docker image name: "
-#read imagename
-#
-## Build the Docker image and pass the gitlab username and password
-#docker build --build-arg git_username=$username --build-arg git_password=$password -t $imagename .
-
-
 
