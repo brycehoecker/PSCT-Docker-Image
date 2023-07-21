@@ -8,6 +8,11 @@ rm github_checkout.list
 
 
 
+## CANT USE WHEN Without gitlab SSH key passed into the Dockerfile 
+## Clone the repos listed in gitlab_checkout.list
+#while read repo_url; do git clone "$repo_url"; done < gitlab_checkout.list
+#rm gitlab_checkout.list
+#
 # USE WHEN/IF the github_checkout.list is formatted like 
 # username/repositoryname
 #
@@ -24,5 +29,6 @@ rm github_checkout.list
 #while read repo; do git clone "https://${GITHUB_TOKEN}@github.com/$repo.git"; done < github_checkout.list
 #rm github_checkout.list
 #
-## Rest of your script...
+## Rest of the script...
+## If i need anyelse put it here
 
