@@ -25,7 +25,7 @@ RUN dnf -y update && \
     rm -f dnfinstall.list
 
 # Change color profile
-RUN echo 'PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "' >> ~/.bashrc \
+RUN echo 'PS1="\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;32m\]\h:\[\033[1;35m\]\w\[\033[1;31m\]\$\[\033[0m\] "' >> ~/.bashrc \
     && echo 'alias ls="ls --color=auto"' >> ~/.bashrc
 
 # Set ssh key
@@ -55,5 +55,6 @@ SHELL ["conda", "run", "-n", "mymambaenv", "/bin/bash", "-c"]
 
 # Delete the mamba_environment.yml file
 RUN rm mamba_environment.yml
+
 
 
