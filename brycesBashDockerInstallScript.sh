@@ -13,10 +13,17 @@ NC='\033[0m' # No Color		# ${NC}
 
 # Set Docker image name
 imagename="psct_docker"
+
+# Create the .ssh Directory
+mkdir -p ~/.ssh
+
 # Set the SSH key path
-SSH_KEY_PATH="~/.ssh/gitlab_docker"
+SSH_KEY_PATH="$HOME/.ssh/gitlab_docker"
+
 # Prompt the user for their GitLab email
-read -p "${YELLOW}Please enter your GitLab email:${NC} " GITLAB_EMAIL
+echo -ne "${YELLOW}Please enter your GitLab email:${NC} "
+read GITLAB_EMAIL
+
 # Check if the SSH key already exists
 if [ ! -f $SSH_KEY_PATH ]; then
   echo -e "${YELLOW}Generating a new SSH key...${NC}"
@@ -24,11 +31,14 @@ if [ ! -f $SSH_KEY_PATH ]; then
 else
   echo -e "${GREEN}Existing SSH key found, skipping generation.${NC}"
 fi
+
 # Print the public key
 echo -e "${GREEN}Please add the following public key to your GitLab account:${NC}"
 cat "${SSH_KEY_PATH}.pub"
+
 # Prompt user for confirmation
-read -p "${YELLOW}Press enter to continue once you've added the SSH key to your GitLab account...${NC}"
+echo -e "${YELLOW}Press enter to continue once you've added the SSH key to your GitLab account...${NC}"
+read -p ""
 
 # Load the SSH key
 SSH_PRIVATE_KEY=$(cat $SSH_KEY_PATH)
@@ -41,4 +51,3 @@ echo -e "${YELLOW}Docker image $imagename has finished attempting to build.${NC}
 # Run the Docker container interactively
 echo -e "${CYAN}Now running the $imagename Docker container interactively.${NC}"
 docker run -it $imagename
-
