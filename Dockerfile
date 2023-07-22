@@ -24,9 +24,13 @@ RUN dnf -y update && \
     dnf clean all && \
     rm -f dnfinstall.list
 
+# Change color profile
+RUN echo 'PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "' >> ~/.bashrc \
+    && echo 'alias ls="ls --color=auto"' >> ~/.bashrc
+
 # Set ssh key
 ARG SSH_PRIVATE_KEY
-RUN mkdir /root/.ssh/ \
+RUN mkdir -p /root/.ssh/ \
     && echo "${SSH_PRIVATE_KEY}" > /root/.ssh/id_rsa \
     && chmod 600 /root/.ssh/id_rsa \
     && ssh-keyscan gitlab.com >> /root/.ssh/known_hosts
@@ -51,3 +55,5 @@ SHELL ["conda", "run", "-n", "mymambaenv", "/bin/bash", "-c"]
 
 # Delete the mamba_environment.yml file
 RUN rm mamba_environment.yml
+
+
