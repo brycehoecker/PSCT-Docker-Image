@@ -57,14 +57,12 @@ imagename = "psct_docker"
 # Set the SSH key path
 ssh_key_path = os.path.expanduser("~/.ssh/gitlab_docker")
 
-## Prompt the user for their GitLab email
-#gitlab_email = input("Please enter your GitLab email: ")
-#
+# Prompt the user for their GitLab email
+gitlab_email = input("Please enter your GitLab email: ")
 
-#
-# Comment above and Uncomment below to skip entering gitLab email everytime
-gitlab_email = "bryce.hoecker@cta-consortium.org"
-#
+## Comment above and Uncomment below to skip entering gitLab email everytime
+#gitlab_email = "username@cta-consortium.org" #Probably @cta-consortium.org 
+
 
 # Check if the SSH key already exists
 if not os.path.isfile(ssh_key_path):
@@ -81,7 +79,7 @@ with open(f"{ssh_key_path}.pub", "r") as f:
     print("Please add the following public key to your GitLab account:\n", f.read())
 
 # Prompt user for confirmation (comment out to skip waiting period for user to copy ssh key)
-#input("Press enter to continue once you've added the SSH key to your GitLab account...")
+input("Press enter to continue once you've added the SSH key to your GitLab account...")
 
 # Load the SSH key
 with open(ssh_key_path, "r") as f:
