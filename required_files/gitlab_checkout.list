@@ -1,0 +1,5 @@
+git@gitlab.cta-observatory.org:cta-array-elements/common/targetlibraries/targetio.git
+git@gitlab.cta-observatory.org:cta-array-elements/common/targetlibraries/targetcalib.git
+git@gitlab.cta-observatory.org:cta-array-elements/common/targetlibraries/targetdriver.git
+git@gitlab.cta-observatory.org:cta-array-elements/psct/CameraSoftware.git
+git@gitlab.cta-observatory.org:cta-array-elements/psct/cta-sctchain.git
