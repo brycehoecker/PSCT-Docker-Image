@@ -1,5 +1,11 @@
 # PSCT-Docker-Image
 Hopefully a simple way to setup an environment and start making changes to the pSCT code.
 
-Still a work in progress, DO NOT trust or run any of these scripts on your computer until this is deleted.  -Bryce Hoecker
+Pre-install REQUIREMENTS
+1. INSTALL DOCKER
+2. INSTALL PYTHON3
+3. Have a GitLab account and email
+   
+
+Should work on linux windows and mac. But not tested.  -Bryce Hoecker
 
