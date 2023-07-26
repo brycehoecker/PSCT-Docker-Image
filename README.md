@@ -10,8 +10,13 @@ Pre-install REQUIREMENTS
 
 Run the psctDockerInstaller.py with sudo/admin privileges.
 
+THATS ALL!
+
+
+
+
+
+
+
 
 DO NOT RUN THE localLinuxInstaller.sh SCRIPT UNTIL THIS COMMENT IS DELETED IT IS A WORK IN PROGRESS AND I AM NOT RESPONSIBLE IF IT BREAKS ANYTHING -BRYCE HOECKER
-
-
-
